@@ -6,7 +6,7 @@ function App() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [dueDate, setDueDate] = useState('');
-  const [todos, setTodos] = useState<{ _id: string; title: string; description: string; dueDate: string; done: boolean; }[]>([]);
+  const [todos, setTodos] = useState<{ _id: string; title: string; description: string; dueDate: Date; done: boolean; }[]>([]);
 
   useEffect(() => {
     fetchTodos();
@@ -43,7 +43,7 @@ function App() {
     }
   };
 
-  const handleUpdateTodo = async (id : string, updatedTodo: { title: string; description: string; dueDate: string }) => {
+  const handleUpdateTodo = async (id : string, updatedTodo: { title: string; description: string; dueDate: Date }) => {
     try {
       console.log(`updating todo: {id}`);
       await axios.put(`/api/todos/${id}`, updatedTodo);

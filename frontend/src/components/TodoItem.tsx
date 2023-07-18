@@ -5,12 +5,12 @@ interface TodoItemProps {
         _id: string;
         title: string;
         description: string;
-        dueDate: string;
+        dueDate: Date;
         done: boolean;
     };
     onDelete: (id: string) => void;
     onToggleDone: (id: string) => void;
-    onUpdate: (id: string, updatedTodo: { title: string; description: string; dueDate: string }) => void;
+    onUpdate: (id: string, updatedTodo: { title: string; description: string; dueDate: Date }) => void;
 }
 
 function TodoItem({ todo, onDelete, onToggleDone, onUpdate } : TodoItemProps) {
@@ -43,6 +43,17 @@ function TodoItem({ todo, onDelete, onToggleDone, onUpdate } : TodoItemProps) {
         setUpdatedDueDate(todo.dueDate);
     };
 
+    //get date in format dd/mm/yyyy
+
+
+
+
+
+    const date = new Date(todo.dueDate);
+    const dateString = date.toLocaleDateString('en-GB');
+    const updatedDate = new Date(updatedDueDate);
+    const updatedDateString = updatedDate.toLocaleDateString('en-GB');
+
     return (
         <tr>
             <td>
@@ -54,7 +65,7 @@ function TodoItem({ todo, onDelete, onToggleDone, onUpdate } : TodoItemProps) {
                         {todo.title}
                     </td>
                     <td style={todo.done ? { textDecoration: 'line-through' } : {}}>{todo.description}</td>
-                    <td style={todo.done ? { textDecoration: 'line-through' } : {}}>{todo.dueDate}</td>
+                    <td style={todo.done ? { textDecoration: 'line-through' } : {}}>{dateString}</td>
                 </>
             ) : (
                 <>
@@ -75,8 +86,8 @@ function TodoItem({ todo, onDelete, onToggleDone, onUpdate } : TodoItemProps) {
                     <td>
                         <input
                             type="date"
-                            value={updatedDueDate}
-                            onChange={e => setUpdatedDueDate(e.target.value)}
+                            value={updatedDateString}
+                            onChange={e => setUpdatedDueDate(new Date(e.target.value))}
                         />
                     </td>
                 </>
