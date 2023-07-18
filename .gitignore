@@ -4,3 +4,4 @@ notification/node_modules/
 .idea/
 data
 *.log
+**dist**
