@@ -22,10 +22,9 @@ const checkRelevantItems = async () => {
     try {
         console.log("looking for notifications");
         const today = new Date();
-        today.setHours(0, 0, 0, 0);
-
         const nextDay = new Date(today);
         nextDay.setDate(today.getDate() + 1);
+        nextDay.setHours(23, 59, 59, 999);
 
         const relevantItems = await Todo.find({
             dueDate: {
