@@ -22,6 +22,7 @@ const checkRelevantItems = async () => {
     try {
         console.log("looking for notifications");
         const today = new Date();
+        today.setHours(0, 0, 0, 0);
         const nextDay = new Date(today);
         nextDay.setDate(today.getDate() + 1);
         nextDay.setHours(23, 59, 59, 999);
@@ -52,9 +53,9 @@ const checkRelevantItems = async () => {
 const runMicroservice = () => {
     console.log('Notification microservice started');
 
-    // Schedule the cron job to run every day at 12PM
-    //cron.schedule('0 12 * * *', () => {
-    cron.schedule('* * * * *', () => {
+    // Schedule the cron job to run every day at 8AM
+    cron.schedule('0 8 * * *', () => {
+    //cron.schedule('* * * * *', () => {
         checkRelevantItems();
     });
 };
