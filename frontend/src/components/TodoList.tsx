@@ -6,12 +6,12 @@ interface TodoListProps {
         _id: string;
         title: string;
         description: string;
-        dueDate: Date;
+        dueDate: string;
         done: boolean;
     }[];
     onDelete: (id: string) => void;
     onToggleDone: (id: string) => void;
-    onUpdate: (id: string, updatedTodo: { title: string; description: string; dueDate: Date }) => void;
+    onUpdate: (id: string, updatedTodo: { title: string; description: string; dueDate: string }) => void;
 }
 
 function TodoList({ todos, onDelete, onToggleDone, onUpdate } : TodoListProps) {

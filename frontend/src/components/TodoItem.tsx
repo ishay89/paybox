@@ -5,12 +5,12 @@ interface TodoItemProps {
         _id: string;
         title: string;
         description: string;
-        dueDate: Date;
+        dueDate: string;
         done: boolean;
     };
     onDelete: (id: string) => void;
     onToggleDone: (id: string) => void;
-    onUpdate: (id: string, updatedTodo: { title: string; description: string; dueDate: Date }) => void;
+    onUpdate: (id: string, updatedTodo: { title: string; description: string; dueDate: string }) => void;
 }
 
 function TodoItem({ todo, onDelete, onToggleDone, onUpdate } : TodoItemProps) {
@@ -43,17 +43,6 @@ function TodoItem({ todo, onDelete, onToggleDone, onUpdate } : TodoItemProps) {
         setUpdatedDueDate(todo.dueDate);
     };
 
-    //get date in format dd/mm/yyyy
-
-
-
-
-
-    const date = new Date(todo.dueDate);
-    const dateString = date.toLocaleDateString('en-GB');
-    const updatedDate = new Date(updatedDueDate);
-    const updatedDateString = updatedDate.toLocaleDateString('en-GB');
-
     return (
         <tr>
             <td>
@@ -61,11 +50,9 @@ function TodoItem({ todo, onDelete, onToggleDone, onUpdate } : TodoItemProps) {
             </td>
             {!editMode ? (
                 <>
-                    <td style={todo.done ? { textDecoration: 'line-through' } : {}}>
-                        {todo.title}
-                    </td>
+                    <td style={todo.done ? { textDecoration: 'line-through' } : {}}>{todo.title}</td>
                     <td style={todo.done ? { textDecoration: 'line-through' } : {}}>{todo.description}</td>
-                    <td style={todo.done ? { textDecoration: 'line-through' } : {}}>{dateString}</td>
+                    <td style={todo.done ? { textDecoration: 'line-through' } : {}}>{todo.dueDate.split('T')[0]}</td>
                 </>
             ) : (
                 <>
@@ -86,8 +73,8 @@ function TodoItem({ todo, onDelete, onToggleDone, onUpdate } : TodoItemProps) {
                     <td>
                         <input
                             type="date"
-                            value={updatedDateString}
-                            onChange={e => setUpdatedDueDate(new Date(e.target.value))}
+                            value={`${updatedDueDate.split('T')[0]}`}
+                            onChange={e => setUpdatedDueDate(e.target.value)}
                         />
                     </td>
                 </>
@@ -107,6 +94,7 @@ function TodoItem({ todo, onDelete, onToggleDone, onUpdate } : TodoItemProps) {
             </td>
         </tr>
     );
-};
+}
+
 
 export default TodoItem;
