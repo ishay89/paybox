@@ -54,7 +54,8 @@ const runMicroservice = () => {
     console.log('Notification microservice started');
 
     // Schedule the cron job to run every day at 12PM
-    cron.schedule('0 12 * * *', () => {
+    //cron.schedule('0 12 * * *', () => {
+    cron.schedule('* * * * *', () => {
         checkRelevantItems();
     });
 };
