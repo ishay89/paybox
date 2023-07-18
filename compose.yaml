@@ -14,7 +14,6 @@ services:
       - react-express
     depends_on:
       - backend
-
   backend:
     restart: always
     build:
